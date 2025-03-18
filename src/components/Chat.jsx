@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-function Chat({ namespaces, getNameSpaceRooms, rooms }) {
+function Chat({
+  namespaces,
+  getNameSpaceRooms,
+  rooms,
+  joinUserIntoRoom,
+  roomInfo,
+}) {
   const [mainNameSpace, setMainNameSpace] = useState({});
 
   useEffect(() => {
@@ -8,6 +14,7 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
   }, [namespaces]);
 
   console.log(rooms);
+  
 
   return (
     <main className="main">
@@ -52,10 +59,14 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
             <div className="sidebar__contact data-category-all sidebar__contact--active">
               <ul className="sidebar__contact-list">
                 {rooms.map((room) => (
-                  <li className="sidebar__contact-item" key={room._id}>
+                  <li
+                    onClick={() => joinUserIntoRoom(room.title)}
+                    className="sidebar__contact-item"
+                    key={room._id}
+                  >
                     <div className="sidebar__contact-link">
                       <div className="sidebar__contact-left">
-                      <div className="sidebar__contact-left-left">
+                        <div className="sidebar__contact-left-left">
                           <img
                             className="sidebar__contact-avatar"
                             src={`http://localhost:4003/${room.image}`}
@@ -67,10 +78,11 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
                           </span>
                           <div className="sidebar__contact-sender">
                             <span className="sidebar__contact-sender-name">
-                              {room.messages?.[0]?.sender.username} <span> </span>
+                              {room.messages?.[0]?.sender.username}{" "}
+                              <span> </span>
                             </span>
                             <span className="sidebar__contact-sender-text">
-                            {room.messages?.[0]?.message.slice(0 , 15)}
+                              {room.messages?.[0]?.message.slice(0, 15)}
                             </span>
                           </div>
                         </div>
@@ -572,7 +584,11 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
         </div>
         <div className="costom-col-9 container-hide">
           <section className="chat">
-            <div className="chat__header">
+            <div
+              className={`chat__header ${
+                roomInfo.title ? "chat__header--active" : ""
+              }`}
+            >
               <div className="chat__header-left">
                 <button className="btn-icon sidebar-close-button">
                   <span className="tgico button-icon"></span>
@@ -581,11 +597,11 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
                 <div className="chat__header-left-left">
                   <img
                     className="chat__header-avatar"
-                    src="public/images/avatar.jpg"
+                    src={`http://localhost:4003/${roomInfo.image}`}
                   />
                 </div>
                 <div className="chat__header-left-right">
-                  <span className="chat__header-name">M.SaeeidiRad</span>
+                  <span className="chat__header-name">{roomInfo.title}</span>
                   <span className="chat__header-status">
                     last seen recently
                   </span>
@@ -603,7 +619,11 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
                 </div>
               </div>
             </div>
-            <div className="chat__content">
+            <div
+              className={`chat__content ${
+                roomInfo.title ? "chat__content--active" : ""
+              }`}
+            >
               <div className="chat__content-date">
                 <span className="chat__content-date-text"> Today </span>
               </div>
