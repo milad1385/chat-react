@@ -7,6 +7,7 @@ function ChatPage() {
   const [namespaces, setNameSpaces] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [roomInfo, setRoomInfo] = useState({});
+  const [onlineUsers, setOnlineUsers] = useState(null);
 
   useEffect(() => {
     socket?.on("namespaces", (namespaces) => {
@@ -23,10 +24,17 @@ function ChatPage() {
 
   const joinUserIntoRoom = (roomTitle) => {
     namespaceSocket?.emit("joining", roomTitle);
+    getOnlineUsers();
+
     namespaceSocket.off("roomInfo");
     namespaceSocket?.on("roomInfo", (data) => {
-      console.log(data);
       setRoomInfo(data);
+    });
+  };
+
+  const getOnlineUsers = () => {
+    namespaceSocket.on("onlineUsersCount", (usersCount) => {
+      setOnlineUsers(usersCount);
     });
   };
 
@@ -37,6 +45,7 @@ function ChatPage() {
       rooms={rooms}
       joinUserIntoRoom={joinUserIntoRoom}
       roomInfo={roomInfo}
+      onlineUsers={onlineUsers}
     />
   );
 }
