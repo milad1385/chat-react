@@ -91,9 +91,11 @@ function Chat({
                       </div>
                       <div className="sidebar__contact-right">
                         <span className="sidebar__contact-clock">15.53</span>
-                        <span className="sidebar__contact-counter sidebar__counter sidebar__counter-active">
-                          {room.messages.length}
-                        </span>
+                        {room.messages.length > 0 && (
+                          <span className="sidebar__contact-counter sidebar__counter sidebar__counter-active">
+                            {room.messages.length}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </li>
