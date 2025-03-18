@@ -13,9 +13,6 @@ function Chat({
     setMainNameSpace(namespaces[0]);
   }, [namespaces]);
 
-  console.log(rooms);
-  
-
   return (
     <main className="main">
       <section className="costom-row">

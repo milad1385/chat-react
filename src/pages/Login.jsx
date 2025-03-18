@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 function Login() {
   const [form, setForm] = useState({ username: "", phone: "" });
-  const navigate = useNavigate();
 
   const inputChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -28,7 +27,7 @@ function Login() {
         `User ${res.status === 200 ? "login" : "register"} successfully :)`
       );
 
-      navigate("/");
+      location.href = "/";
     }
   };
   return (

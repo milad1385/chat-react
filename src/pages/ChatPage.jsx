@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chat from "../components/Chat";
+import { useAuth } from "../context/AuthProvider";
 import { useSocket } from "../context/SocketProvider";
 
 function ChatPage() {
@@ -7,6 +8,10 @@ function ChatPage() {
   const [namespaces, setNameSpaces] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [roomInfo, setRoomInfo] = useState({});
+
+
+  const { user } = useAuth();
+
 
   useEffect(() => {
     socket?.on("namespaces", (namespaces) => {
