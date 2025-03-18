@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthProvider";
 
 function Chat({
   namespaces,
@@ -8,6 +9,9 @@ function Chat({
   roomInfo,
 }) {
   const [mainNameSpace, setMainNameSpace] = useState({});
+  const { user } = useAuth();
+
+  console.log(roomInfo);
 
   useEffect(() => {
     setMainNameSpace(namespaces[0]);
@@ -625,79 +629,35 @@ function Chat({
                 <span className="chat__content-date-text"> Today </span>
               </div>
               <div className="chat__content-main">
-                <div className="chat__content-sender-wrapper chat__content-wrapper">
-                  <div className="chat__content-sender">
-                    <span className="chat__content-sender-text">
-                      این راست نیست که هرچه عاشق‌ تر باشی بهتر درک می‌کنی. همه‌ی
-                      آنچه عشق و عاشقی از من می‌ خواهد فقط درکِ این حکمت است:
-                      دیگری نشناختنی است؛ ماتیِ او پرده‌ی ابهامی به روی یک راز
-                      نیست، بل گواهی است که در آن بازیِ بود و نمود هیچ‌ جایی
-                      ندارد. پس من در مسرتِ عشق ورزیدن به یک ناشناس غرق می‌شوم،
-                      کسی که تا ابد ناشناس خواهد ماند. سِیری عارفانه: من آن‌چه
-                      را نمی‌شناسم می‌شناسم...!
-                    </span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-receiver-wrapper chat__content-wrapper">
-                  <div className="chat__content-receiver">
-                    <span className="chat__content-receiver-text">بنازمم</span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-receiver-wrapper chat__content-wrapper">
-                  <div className="chat__content-receiver">
-                    <span className="chat__content-receiver-text">
-                      بذار یکی هم من بگم.
-                    </span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-receiver-wrapper chat__content-wrapper">
-                  <div className="chat__content-receiver">
-                    <span className="chat__content-receiver-text">
-                      هر نفسی که فرو می‌ بریم، مرگی را که مدام به ما دست‌ اندازی
-                      می‌کند پس می‌زند... در نهایت این مرگ است که باید پیروز
-                      شود، زیرا از هنگام تولد بخشی از سرنوشت ما شده و فقط مدت
-                      کوتاهی پیش از بلعیدن طعمه اش، با آن بازی می کند. با این
-                      همه، ما تا آنجا که ممکن است، با علاقه فراوان و دلواپسی
-                      زیاد به زندگی ادامه می دهیم، همان‌ طور که تا آنجا که ممکن
-                      است طولانی‌ تر در یک حباب صابون می‌ دمیم تا بزرگتر شود، گر
-                      چه با قطعیتی تمام می‌ دانیم که خواهد ترکید.
-                    </span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-sender-wrapper chat__content-wrapper">
-                  <div className="chat__content-sender">
-                    <span className="chat__content-sender-text">ماشالا</span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-sender-wrapper chat__content-wrapper">
-                  <div className="chat__content-sender">
-                    <span className="chat__content-sender-text">
-                      ولی من کم نمیارم
-                    </span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-sender-wrapper chat__content-wrapper">
-                  <div className="chat__content-sender">
-                    <span className="chat__content-sender-text">
-                      ولی من کم نمیارم
-                    </span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
-                <div className="chat__content-sender-wrapper chat__content-wrapper">
-                  <div className="chat__content-sender">
-                    <span className="chat__content-sender-text">
-                      ولی من کم نمیارم
-                    </span>
-                    <span className="chat__content-chat-clock">17:55</span>
-                  </div>
-                </div>
+                {roomInfo?.messages?.map((messageInfo) => {
+                  if (user._id === messageInfo?.sender) {
+                    return (
+                      <div className="chat__content-receiver-wrapper chat__content-wrapper">
+                        <div className="chat__content-receiver">
+                          <span className="chat__content-receiver-text">
+                            {messageInfo?.message}
+                          </span>
+                          <span className="chat__content-chat-clock">
+                            17:55
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="chat__content-sender-wrapper chat__content-wrapper">
+                        <div className="chat__content-sender">
+                          <span className="chat__content-sender-text">
+                            {messageInfo?.message}
+                          </span>
+                          <span className="chat__content-chat-clock">
+                            17:55
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
               </div>
               <div className="chat__content-bottom-bar">
                 <div className="chat__content-bottom-bar-left">
