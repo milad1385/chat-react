@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 
 function Chat({
@@ -8,16 +8,31 @@ function Chat({
   joinUserIntoRoom,
   roomInfo,
   onlineUsers,
+  detectIsTyping,
+  isTypingInfo,
 }) {
   const [mainNameSpace, setMainNameSpace] = useState({});
+  const [isTyping, setIsTyping] = useState(false);
+  const isTypingTimeout = useRef();
   const { user } = useAuth();
-
-  console.log(roomInfo);
 
   useEffect(() => {
     setMainNameSpace(namespaces[0]);
   }, [namespaces]);
 
+  useEffect(() => {
+    detectIsTyping(user._id, roomInfo.title, isTyping);
+  }, [isTyping]);
+
+  const handleChangeInput = (e) => {
+    setIsTyping(true);
+
+    if (isTypingTimeout.current) clearTimeout(isTypingTimeout.current);
+
+    isTypingTimeout.current = setTimeout(() => {
+      setIsTyping(false);
+    }, 2000);
+  };
   return (
     <main className="main">
       <section className="costom-row">
@@ -125,7 +140,12 @@ function Chat({
                 <div className="chat__header-left-right">
                   <span className="chat__header-name">{roomInfo.title}</span>
                   <span className="chat__header-status">
-                    {onlineUsers} user{onlineUsers > 1 ? "s" : ""} online
+                    {isTypingInfo?.isTyping &&
+                    isTypingInfo.username !== user.username
+                      ? `${isTypingInfo.username} is typing ...`
+                      : `${onlineUsers} user${
+                          onlineUsers > 1 ? "s" : ""
+                        } online`}
                   </span>
                 </div>
               </div>
@@ -192,6 +212,8 @@ function Chat({
                     className="chat__content-bottom-bar-input"
                     placeholder="Message"
                     type="text"
+                    onChange={(e) => handleChangeInput(e)}
+                    ref={isTypingTimeout}
                   />
                   <i className="chat__content-bottom-bar-icon-left tgico button-icon laugh-icon"></i>
                   <i className="chat__content-bottom-bar-icon-right tgico button-icon file-icon"></i>

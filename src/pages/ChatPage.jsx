@@ -8,6 +8,7 @@ function ChatPage() {
   const [rooms, setRooms] = useState([]);
   const [roomInfo, setRoomInfo] = useState({});
   const [onlineUsers, setOnlineUsers] = useState(null);
+  const [isTypingInfo, setIsTypingInfo] = useState(null);
 
   useEffect(() => {
     socket?.on("namespaces", (namespaces) => {
@@ -25,6 +26,7 @@ function ChatPage() {
   const joinUserIntoRoom = (roomTitle) => {
     namespaceSocket?.emit("joining", roomTitle);
     getOnlineUsers();
+    confirmIsTyping();
 
     namespaceSocket.off("roomInfo");
     namespaceSocket?.on("roomInfo", (data) => {
@@ -33,9 +35,23 @@ function ChatPage() {
   };
 
   const getOnlineUsers = () => {
-    namespaceSocket.on("onlineUsersCount", (usersCount) => {
+    namespaceSocket?.on("onlineUsersCount", (usersCount) => {
       setOnlineUsers(usersCount);
     });
+  };
+
+  const detectIsTyping = (userID, roomName, isTyping) => {
+    namespaceSocket?.emit("isTyping", { userID, roomName, isTyping });
+  };
+
+  const confirmIsTyping = () => {
+    if (namespaceSocket) {
+      namespaceSocket.on("isTyping", (data) => {
+        console.log(data);
+        
+        setIsTypingInfo(data);
+      });
+    }
   };
 
   return (
@@ -46,6 +62,8 @@ function ChatPage() {
       joinUserIntoRoom={joinUserIntoRoom}
       roomInfo={roomInfo}
       onlineUsers={onlineUsers}
+      detectIsTyping={detectIsTyping}
+      isTypingInfo={isTypingInfo}
     />
   );
 }
