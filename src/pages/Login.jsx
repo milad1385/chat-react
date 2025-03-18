@@ -22,6 +22,8 @@ function Login() {
     });
 
     if (res.status === 200 || res.status === 201) {
+      const result = await res.json();
+      localStorage.setItem("token", result.token);
       toast.success(
         `User ${res.status === 200 ? "login" : "register"} successfully :)`
       );
