@@ -853,3 +853,7 @@
 .sidebar__contact-sender-name{
   color: #f0f0f0;
 }
+
+.sidebar__contact-item{
+  cursor: pointer;
+}

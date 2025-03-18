@@ -55,7 +55,7 @@ function Chat({ namespaces, getNameSpaceRooms, rooms }) {
                   <li className="sidebar__contact-item" key={room._id}>
                     <div className="sidebar__contact-link">
                       <div className="sidebar__contact-left">
-                        <div className="sidebar__contact-left-left">
+                      <div className="sidebar__contact-left-left">
                           <img
                             className="sidebar__contact-avatar"
                             src={`http://localhost:4003/${room.image}`}
