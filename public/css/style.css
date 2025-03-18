@@ -345,7 +345,7 @@
 
 .chat__content {
   margin: 0px auto;
-  height: 100%;
+  height: 83% !important;
   overflow-y: scroll;
   scrollbar-width: none;
   visibility: hidden;
@@ -435,11 +435,12 @@
 
 .chat__content-bottom-bar {
   position: absolute;
-  bottom: -1rem;
+  bottom: 13.5rem;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 80%;
   padding: 0px 25rem;
+  overflow: hidden;
 }
 
 .chat__content-bottom-bar-input {
@@ -845,17 +846,39 @@
   }
 }
 
+.fa-trash {
+  margin-left: 8px;
+}
+
+.upload-button {
+  /* position: relative; */
+  max-width: 50px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+.upload-button input[type="file"] {
+  position: absolute;
+  cursor: pointer;
+  width: 37px;
+  height: 50px;
+  opacity: 0;
+  right: 0;
+  top: 17px;
+}
+
+.sidebar__contact-sender {
+  color: white;
+}
+
 .sidebar__contact-title {
   color: white;
 }
 
-.sidebar__contact-sender-name {
-  color: #f0f0f0;
-}
 
-.sidebar__contact-item {
-  cursor: pointer;
-}
 
 
 .box {
@@ -877,8 +900,8 @@ h1 {
   letter-spacing: 5px;
 }
 /************** 
-     Input Fields
-    ***************/
+       Input Fields
+      ***************/
 #username,
 #phone {
   border: 2px solid #0097e6;
@@ -894,23 +917,23 @@ h1 {
   transition: 250ms width ease, 250ms border-color ease;
 }
 /************** 
-       On Hover
-    ***************/
+         On Hover
+      ***************/
 #username:hover,
 #phone:hover {
   width: 220px;
 }
 /************** 
-       On Focus
-    ***************/
+         On Focus
+      ***************/
 #username:focus,
 #phone:focus {
   width: 250px;
   border-color: #6fb98f;
 }
 /************** 
-     Submit Button
-    ***************/
+       Submit Button
+      ***************/
 .box button {
   border: 2px solid #2ecc71;
   background: none;
@@ -930,8 +953,9 @@ h1 {
   -o-transition: 250ms background ease;
 }
 /************** 
-       On Hover
-    ***************/
-#submit:hover {
+         On Hover
+      ***************/
+.box button:hover {
   background: #2ecc71;
 }
+

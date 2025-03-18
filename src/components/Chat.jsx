@@ -685,12 +685,15 @@ function Chat({
                 <div className="chat__content-sender-wrapper chat__content-wrapper">
                   <div className="chat__content-sender">
                     <span className="chat__content-sender-text">
-                      مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار
-                      نمیداد، همه میگفتند : تو به هیچ دردی نمیخوری، یک شب که
-                      مداد رنگی ها تو سیاهی شب گم شده بودند، مداد سفید تا صبح
-                      ماه کشید مهتاب کشید و انقدر ستاره کشید که کوچک و کوچکتر شد
-                      صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی پر نشد، به
-                      یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
+                      ولی من کم نمیارم
+                    </span>
+                    <span className="chat__content-chat-clock">17:55</span>
+                  </div>
+                </div>
+                <div className="chat__content-sender-wrapper chat__content-wrapper">
+                  <div className="chat__content-sender">
+                    <span className="chat__content-sender-text">
+                      ولی من کم نمیارم
                     </span>
                     <span className="chat__content-chat-clock">17:55</span>
                   </div>
@@ -728,41 +731,6 @@ function Chat({
           </section>
         </div>
       </section>
-
-      <div className="contact-menu context-menu">
-        {/* <ul className="contact-menu__list context-menu__list">
-                <li className="contact-menu__item context-menu__item">
-                    <i className="contact-menu__icon context-menu__icon fa fa-trash"></i>
-                    <span className="contact-menu__text context-menu__text">Open in new salam</span>
-                </li>
-            
-                <li className="contact-menu__item context-menu__item">
-                    <i className="contact-menu__icon context-menu__icon fa fa-trash"></i>
-                    <span className="contact-menu__text context-menu__text">Open in new tab</span>
-                </li>
-            
-                <li className="contact-menu__item context-menu__item">
-                    <i className="contact-menu__icon context-menu__icon fa fa-trash"></i>
-                    <span className="contact-menu__text context-menu__text">Open in new tab</span>
-                </li>
-            
-                <li className="contact-menu__item context-menu__item">
-                    <i className="contact-menu__icon context-menu__icon fa fa-trash"></i>
-                    <span className="contact-menu__text context-menu__text">Open in new tab</span>
-                </li>
-            
-                <li className="contact-menu__item context-menu__item">
-                    <i className="contact-menu__icon context-menu__icon fa fa-trash"></i>
-                    <span className="contact-menu__text context-menu__text">Open in new tab</span>
-                </li>
-            
-                <li className="contact-menu__item context-menu__item context-menu__item-delete">
-                    <i className="contact-menu__icon context-menu__icon fa fa-trash"></i>
-                    <span className="contact-menu__text context-menu__text">Open in new tab</span>
-                </li>
-            
-        </ul> */}
-      </div>
 
       <div className="chat-menu context-menu">
         <div className="contact-menu__list context-menu__list">

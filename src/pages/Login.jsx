@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 function Login() {
   const [form, setForm] = useState({ username: "", phone: "" });
 
