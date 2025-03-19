@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { calculateTime } from "../Utils/func";
 import { RxPaperPlane } from "react-icons/rx";
+import { FaTrash } from "react-icons/fa";
 
 function Chat({
   namespaces,
@@ -15,6 +16,7 @@ function Chat({
   sendMessage,
   messages,
   setMessages,
+  deleteMessage,
 }) {
   const [mainNameSpace, setMainNameSpace] = useState({});
   const [isTyping, setIsTyping] = useState(false);
@@ -200,9 +202,15 @@ function Chat({
                           <span className="chat__content-receiver-text">
                             {messageInfo?.message}
                           </span>
-                          <span className="chat__content-chat-clock">
-                            {calculateTime(messageInfo.createdAt)}
-                          </span>
+                          <div className="message-footer">
+                            <span className="chat__content-chat-clock">
+                              {calculateTime(messageInfo.createdAt)}
+                            </span>
+                            <FaTrash
+                              className="trash-icon"
+                              onClick={() => deleteMessage(messageInfo._id , roomInfo.title)}
+                            />
+                          </div>
                         </div>
                       </div>
                     );

@@ -971,3 +971,16 @@ h1 {
   color: var(--white-color);
   cursor: pointer;
 }
+
+
+
+.message-footer{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.trash-icon{
+  cursor: pointer;
+  font-size: 12px;
+}

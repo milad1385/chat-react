@@ -29,6 +29,7 @@ function ChatPage() {
     getOnlineUsers();
     confirmIsTyping();
     getConfirmMessages();
+    confirmDeleteMessage();
 
     namespaceSocket.off("roomInfo");
     namespaceSocket?.on("roomInfo", (data) => {
@@ -63,6 +64,21 @@ function ChatPage() {
     });
   };
 
+  const deleteMessage = (messageID, roomName) => {
+    console.log(messageID, roomName);
+    namespaceSocket?.emit("deleteMsg", { messageID, roomName });
+  };
+
+  const confirmDeleteMessage = () => {
+    namespaceSocket?.on("confirmDeleteMsg", (data) => {
+      setMessages((prevMsg) =>
+        prevMsg.filter(
+          (msg) => msg._id.toString() !== data.messageID.toString()
+        )
+      );
+    });
+  };
+
   return (
     <Chat
       namespaces={namespaces}
@@ -76,6 +92,7 @@ function ChatPage() {
       sendMessage={sendMessage}
       messages={messages}
       setMessages={setMessages}
+      deleteMessage={deleteMessage}
     />
   );
 }
