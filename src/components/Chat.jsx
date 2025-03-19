@@ -10,9 +10,13 @@ function Chat({
   onlineUsers,
   detectIsTyping,
   isTypingInfo,
+  sendMessage,
+  messages,
+  setMessages,
 }) {
   const [mainNameSpace, setMainNameSpace] = useState({});
   const [isTyping, setIsTyping] = useState(false);
+  const [message, setMessage] = useState("");
   const isTypingTimeout = useRef();
   const { user } = useAuth();
 
@@ -21,10 +25,16 @@ function Chat({
   }, [namespaces]);
 
   useEffect(() => {
+    setMessages(roomInfo.messages);
+  }, [roomInfo]);
+
+  useEffect(() => {
     detectIsTyping(user._id, roomInfo.title, isTyping);
   }, [isTyping]);
 
   const handleChangeInput = (e) => {
+    setMessage(e.target.value);
+
     setIsTyping(true);
 
     if (isTypingTimeout.current) clearTimeout(isTypingTimeout.current);
@@ -33,6 +43,15 @@ function Chat({
       setIsTyping(false);
     }, 2000);
   };
+
+  const sendMessageHandler = (e) => {
+    e.preventDefault();
+    sendMessage(user._id, roomInfo.title, message);
+    setMessage("");
+  };
+
+  console.log(messages);
+
   return (
     <main className="main">
       <section className="costom-row">
@@ -75,7 +94,7 @@ function Chat({
             </div>
             <div className="sidebar__contact data-category-all sidebar__contact--active">
               <ul className="sidebar__contact-list">
-                {rooms.map((room) => (
+                {rooms?.map((room) => (
                   <li
                     onClick={() => joinUserIntoRoom(room.title)}
                     className="sidebar__contact-item"
@@ -95,11 +114,11 @@ function Chat({
                           </span>
                           <div className="sidebar__contact-sender">
                             <span className="sidebar__contact-sender-name">
-                              {room.messages?.[0]?.sender.username}{" "}
+                              {room.messages?.[0]?.sender?.username}{" "}
                               <span> </span>
                             </span>
                             <span className="sidebar__contact-sender-text">
-                              {room.messages?.[0]?.message.slice(0, 15)}
+                              {room.messages?.[0]?.message?.slice(0, 15)}
                             </span>
                           </div>
                         </div>
@@ -170,8 +189,8 @@ function Chat({
                 <span className="chat__content-date-text"> Today </span>
               </div>
               <div className="chat__content-main">
-                {roomInfo?.messages?.map((messageInfo) => {
-                  if (user._id === messageInfo?.sender) {
+                {messages?.map((messageInfo) => {
+                  if (user._id === messageInfo?.sender?._id) {
                     return (
                       <div
                         key={messageInfo?._id}
@@ -194,6 +213,9 @@ function Chat({
                         className="chat__content-sender-wrapper chat__content-wrapper"
                       >
                         <div className="chat__content-sender">
+                          <span>
+                            {messageInfo.sender.username}
+                          </span>
                           <span className="chat__content-sender-text">
                             {messageInfo?.message}
                           </span>
@@ -207,17 +229,20 @@ function Chat({
                 })}
               </div>
               <div className="chat__content-bottom-bar">
-                <div className="chat__content-bottom-bar-left">
-                  <input
-                    className="chat__content-bottom-bar-input"
-                    placeholder="Message"
-                    type="text"
-                    onChange={(e) => handleChangeInput(e)}
-                    ref={isTypingTimeout}
-                  />
-                  <i className="chat__content-bottom-bar-icon-left tgico button-icon laugh-icon"></i>
-                  <i className="chat__content-bottom-bar-icon-right tgico button-icon file-icon"></i>
-                </div>
+                <form onSubmit={sendMessageHandler}>
+                  <div className="chat__content-bottom-bar-left">
+                    <input
+                      className="chat__content-bottom-bar-input"
+                      placeholder="Message"
+                      type="text"
+                      onChange={(e) => handleChangeInput(e)}
+                      ref={isTypingTimeout}
+                      value={message}
+                    />
+                    <i className="chat__content-bottom-bar-icon-left tgico button-icon laugh-icon"></i>
+                    <i className="chat__content-bottom-bar-icon-right tgico button-icon file-icon"></i>
+                  </div>
+                </form>
                 <div className="chat__content-bottom-bar-right">
                   <i className="chat__content-bottom-bar-right-icon fa fa-microphone"></i>
                 </div>

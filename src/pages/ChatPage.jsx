@@ -9,6 +9,7 @@ function ChatPage() {
   const [roomInfo, setRoomInfo] = useState({});
   const [onlineUsers, setOnlineUsers] = useState(null);
   const [isTypingInfo, setIsTypingInfo] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     socket?.on("namespaces", (namespaces) => {
@@ -27,6 +28,7 @@ function ChatPage() {
     namespaceSocket?.emit("joining", roomTitle);
     getOnlineUsers();
     confirmIsTyping();
+    getConfirmMessages();
 
     namespaceSocket.off("roomInfo");
     namespaceSocket?.on("roomInfo", (data) => {
@@ -45,13 +47,20 @@ function ChatPage() {
   };
 
   const confirmIsTyping = () => {
-    if (namespaceSocket) {
-      namespaceSocket.on("isTyping", (data) => {
-        console.log(data);
-        
-        setIsTypingInfo(data);
-      });
-    }
+    namespaceSocket?.on("isTyping", (data) => {
+      setIsTypingInfo(data);
+    });
+  };
+
+  const sendMessage = (sender, roomName, message) => {
+    namespaceSocket.emit("newMsg", { sender, roomName, message });
+  };
+
+  const getConfirmMessages = () => {
+    namespaceSocket?.off("confirmMsg");
+    namespaceSocket?.on("confirmMsg", (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
   };
 
   return (
@@ -64,6 +73,9 @@ function ChatPage() {
       onlineUsers={onlineUsers}
       detectIsTyping={detectIsTyping}
       isTypingInfo={isTypingInfo}
+      sendMessage={sendMessage}
+      messages={messages}
+      setMessages={setMessages}
     />
   );
 }
