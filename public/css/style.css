@@ -509,7 +509,7 @@
   right: 145px;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.9rem;
+  font-size: 20px;
   background-color: var(--primary-color);
   border-radius: 100%;
   width: 5.4rem;
@@ -878,9 +878,6 @@
   color: white;
 }
 
-
-
-
 .box {
   width: 350px;
   padding: 40px;
@@ -959,3 +956,18 @@ h1 {
   background: #2ecc71;
 }
 
+.icon {
+  color: white !important;
+  position: absolute;
+  right: 145px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-color);
+  border-radius: 100%;
+
+  padding: 15px;
+  font-size: 18px;
+
+  color: var(--white-color);
+  cursor: pointer;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { calculateTime } from "../Utils/func";
+import { RxPaperPlane } from "react-icons/rx";
 
 function Chat({
   namespaces,
@@ -240,23 +241,13 @@ function Chat({
                     <i className="chat__content-bottom-bar-icon-right tgico button-icon file-icon"></i>
                   </div>
                 </form>
-                <div className="chat__content-bottom-bar-right">
-                  <i className="chat__content-bottom-bar-right-icon fa fa-microphone"></i>
+                <div onClick={sendMessageHandler}>
+                  <RxPaperPlane
+                    style={{ fontSize: "18px" }}
+                    className=" icon"
+                  />
                 </div>
-                <div className="chat__content-bottom-bar-right">
-                  <span
-                    style={{
-                      backgroundColor: "var(--secondary-color)",
-                      top: "-37px",
-                      fontSize: "2.4rem",
-                      visibility: "hidden",
-                      opacity: "0",
-                    }}
-                    className="chat__content-bottom-bar-right-icon tgico button-icon arrow-bottom-icon__active"
-                  >
-                    
-                  </span>
-                </div>
+                <div className="chat__content-bottom-bar-right"></div>
               </div>
             </div>
           </section>
