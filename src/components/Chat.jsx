@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
+import { calculateTime } from "../Utils/func";
 
 function Chat({
   namespaces,
@@ -49,8 +50,6 @@ function Chat({
     sendMessage(user._id, roomInfo.title, message);
     setMessage("");
   };
-
-  console.log(messages);
 
   return (
     <main className="main">
@@ -201,7 +200,7 @@ function Chat({
                             {messageInfo?.message}
                           </span>
                           <span className="chat__content-chat-clock">
-                            17:55
+                            {calculateTime(messageInfo.createdAt)}
                           </span>
                         </div>
                       </div>
@@ -213,14 +212,12 @@ function Chat({
                         className="chat__content-sender-wrapper chat__content-wrapper"
                       >
                         <div className="chat__content-sender">
-                          <span>
-                            {messageInfo.sender.username}
-                          </span>
+                          <span>{messageInfo.sender.username}</span>
                           <span className="chat__content-sender-text">
                             {messageInfo?.message}
                           </span>
                           <span className="chat__content-chat-clock">
-                            17:55
+                            {calculateTime(messageInfo.createdAt)}
                           </span>
                         </div>
                       </div>
